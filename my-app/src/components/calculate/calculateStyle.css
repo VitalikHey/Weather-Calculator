@@ -1,0 +1,28 @@
+.place-button-calculate {
+    width: 400px;
+    height: 280px;
+}
+
+.button {
+    color: white;
+    border-radius: 10px;
+    height: 80px;
+    width: 100px;
+    background-color: #7d7f82;
+}
+
+.button:hover {
+    background-color: cornflowerblue;
+}
+
+.result {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 10px;
+    height: 50px;
+    width: 390px;
+    border-radius: 10px;
+    background-color: #161616;
+    color: white;
+    text-align: right;
+}
