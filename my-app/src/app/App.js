@@ -2,15 +2,13 @@ import "./App.css";
 import "../components/calculate/Calculate"
 import Calculate from "../components/calculate/Calculate";
 import MainNavbar from "../components/navbar/MainNavbar";
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-    //Нужно будет сделать навигационную панель
   return (
     <div>
         <MainNavbar/>
-        <div className="position">
-            <Calculate/>
-        </div>
+        <Calculate/>
     </div>
   );
 }
