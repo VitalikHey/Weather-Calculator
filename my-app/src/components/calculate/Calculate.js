@@ -1,12 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./calculateStyle.css"
 
 function Calculate() {
-    const [outputResult, setOutputResult] = useState("")
+    const [outputResult, setOutputResult] = useState("0")
 
     const handleClick = (event) => {
         const value = event.target.name
-        setOutputResult(outputResult + value)
+
+        if (outputResult === "0") {
+            setOutputResult(value)
+        } else {
+            setOutputResult(outputResult + value)
+        }
     }
 
     const clearResult = () => {
@@ -18,6 +23,7 @@ function Calculate() {
     }
 
     return (
+        //Разобраться с центровкой калькулятора обязательно
         <div style={{paddingLeft: "500px", paddingRight: "500px"}}>
             <h3 className="result">{outputResult}</h3>
             <div className="place-button-calculate">
