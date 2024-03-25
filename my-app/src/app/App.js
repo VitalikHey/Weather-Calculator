@@ -1,16 +1,19 @@
 import "./App.css";
-import "../components/calculate/Calculate"
-import Calculate from "../components/calculate/Calculate";
-import MainNavbar from "../components/navbar/MainNavbar";
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../pages/Home";
+import PageCalculate from "../pages/PageCalculate";
+import PageRecipe from "../pages/PageRecipe";
 
 function App() {
-  return (
-    <div>
-        <MainNavbar/>
-        <Calculate/>
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/calculate" element={<PageCalculate />} />
+                <Route path="/recipe" element={<PageRecipe />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

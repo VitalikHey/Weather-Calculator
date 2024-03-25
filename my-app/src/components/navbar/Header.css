@@ -1,0 +1,20 @@
+@keyframes zoom {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.zoom {
+    transition: transform 0.1s;
+}
+
+.zoom:hover {
+    animation: zoom 2s 1;
+}
+
