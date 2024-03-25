@@ -8,7 +8,7 @@ function pageCalculate() {
             <Header/>
             <Calculate/>
         </div>
-    )
+    );
 }
 
 export default pageCalculate;

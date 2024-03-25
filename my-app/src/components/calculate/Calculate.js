@@ -46,7 +46,7 @@ function Calculate() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Calculate

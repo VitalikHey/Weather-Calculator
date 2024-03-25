@@ -30,7 +30,7 @@ function Header() {
                 </Nav.Link>
             </Nav>
         </Navbar>
-    )
+    );
 }
 
 export default Header;
