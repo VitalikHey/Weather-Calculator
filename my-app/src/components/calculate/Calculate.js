@@ -7,7 +7,7 @@ function Calculate() {
     const handleClick = (event) => {
         const value = event.target.name
 
-        if (outputResult === "0") {
+        if (outputResult === "0" || outputResult === 0) {
             setOutputResult(value)
         } else {
             setOutputResult(outputResult + value)
