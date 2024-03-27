@@ -1,0 +1,14 @@
+.form-style {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.button-style:active {
+    background-color: darkred;
+}
+
+.card-style {
+    width: 500vw;
+}

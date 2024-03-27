@@ -2,8 +2,10 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import {Navbar, Nav} from "react-bootstrap"
 import iconCalculate from "../../images/iconCalculate.png"
-import iconRecipe from "../../images/iconRecipe.png"
+import iconWeather from "../../images/temperature-list-svgrepo-com.svg"
 import "./Header.css"
+
+// Иконку погоды обязательно заменить
 
 function Header() {
     return (
@@ -23,7 +25,7 @@ function Header() {
                     <img
                         className="ml-auto"
                         alt="App"
-                        src={iconRecipe}
+                        src={iconWeather}
                         height="25px"
                         width="25px"
                     />

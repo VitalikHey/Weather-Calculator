@@ -1,9 +1,12 @@
 import React from "react";
+import Weather from "../components/weather/Weather";
+import Header from "../components/navbar/Header";
 
 function PageRecipe() {
     return (
         <div>
-            <h1 style={{color: "red", textAlign: "center"}}>Эта страница пока недоступна!</h1>
+            <Header/>
+            <Weather/>
         </div>
     );
 }
