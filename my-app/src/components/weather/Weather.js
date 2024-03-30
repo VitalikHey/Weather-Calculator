@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Card from "react-bootstrap/Card"
 import "../weather/Weather.css"
-import iconMagnifer from "../../images/satellite-dish-svgrepo-com.svg"
+import iconMagnifier from "../../images/satellite-dish-svgrepo-com.svg"
 import iconCloud from "../../images/iconForWeather/cloud.svg"
 import iconRain from "../../images/iconForWeather/rain.svg"
 import iconClear from "../../images/iconForWeather/sun.svg"
@@ -155,13 +155,23 @@ function Weather() {
         <div>
             <div className="form-style">
                 <Form>
-                    <Form.Control onChange={handleChange} type="text" value={inputValue}
-                                  placeholder="Город или регион"/>
+                    <Form.Control
+                        onKeyPress={(event) => {
+                            if (event.key === "Enter") {
+                                event.preventDefault()
+                                searchPressed()
+                            }
+                        }}
+                        onChange={handleChange}
+                        type="text"
+                        value={inputValue}
+                        placeholder="Город или регион"
+                    />
                 </Form>
                 <Button variant="primary" className="button-style" onClick={searchPressed}>
                     <img
                         alt={"icon"}
-                        src={iconMagnifer}
+                        src={iconMagnifier}
                         width="20px"
                         height="18px"
                     />
@@ -170,8 +180,8 @@ function Weather() {
             <div style={{paddingLeft: "50px"}}>
                 {visible &&
                     <Card className="w-25" style={{boxShadow: "0px 0px 5px 0px #161616"}}>
-                        <Card.Header>{visible && weather.city.name}{"\n"}{visible &&
-                            <span> сегодня: </span>}</Card.Header>
+                        <Card.Header><span style={{fontWeight: "bold", fontSize: "25px"}}>{visible && weather.city.name}</span>{"\n"}{visible &&
+                            <span style={{fontSize: "18px"}}> сегодня: </span>}</Card.Header>
                         <Card.Body>
                             <div>
                                 <Card.Text>
@@ -210,7 +220,7 @@ function Weather() {
                 {visible &&
                     <Card className="w-20" style={{boxShadow: "0px 0px 5px 0px #161616"}}>
                         <Card.Header>{visible && <span
-                            style={{fontSize: "16px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                            style={{fontSize: "16px", display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "bold"}}>
                         {weather.list["12"].dt_txt}
                     </span>}</Card.Header>
                         <Card.Body>
@@ -240,7 +250,8 @@ function Weather() {
                                 fontSize: "16px",
                                 display: "flex",
                                 justifyContent: "center",
-                                alignItems: "center"
+                                alignItems: "center",
+                                fontWeight: "bold"
                             }}>
                         {weather.list["20"].dt_txt}
                     </span>}</Card.Header>
@@ -270,7 +281,8 @@ function Weather() {
                                 fontSize: "16px",
                                 display: "flex",
                                 justifyContent: "center",
-                                alignItems: "center"
+                                alignItems: "center",
+                                fontWeight: "bold"
                             }}>
                         {weather.list["28"].dt_txt}
                     </span>}</Card.Header>
@@ -300,7 +312,8 @@ function Weather() {
                                 fontSize: "16px",
                                 display: "flex",
                                 justifyContent: "center",
-                                alignItems: "center"
+                                alignItems: "center",
+                                fontWeight: "bold"
                             }}>
                         {weather.list["36"].dt_txt}
                     </span>}</Card.Header>
