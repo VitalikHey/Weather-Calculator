@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Card from "react-bootstrap/Card"
@@ -19,6 +20,7 @@ function Weather() {
     const [inputValue, setInputValue] = useState("")
     const [weather, setWeather] = useState({})
     const [visible, setVisible] = useState(false)
+    const [errorVisible, setErrorVisible] = useState(false)
 
     const date = weather
 
@@ -29,14 +31,27 @@ function Weather() {
 
     const searchPressed = () => {
         fetch(`${api.base}/forecast?q=${inputValue}&units=metric&lang=ru&APPID=${api.key}`)
-            .then(response => response.json())
-            .then((result) => {
-                setWeather(result)
-                setInputValue("")
-                setVisible(true)
-                console.log(result)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Город не найден');
+                }
+                return response.json();
             })
+            .then(result => {
+                setWeather(result);
+                setInputValue("");
+                setVisible(true);
+                // Убрать перед окончанием проекта
+                console.log(result);
+            })
+            .catch(error => {
+                console.error(error)
+                setVisible(false);
+                setErrorVisible(true)
+                setInputValue("")
+            });
     }
+
 
     const handleChange = (event) => {
         setInputValue(event.target.value)
@@ -202,6 +217,22 @@ function Weather() {
                         height="18px"
                     />
                 </Button>
+            </div>
+            <div>
+                {errorVisible &&
+                    <Alert className="error-alert-position" variant="danger">
+                        <p>Ошибка в названии населённого пункта, или проблемы с интернетом!</p>
+                        <Button variant="danger" onClick={() => {setErrorVisible(false)}}>
+                            {/*<img*/}
+                            {/*    alt="cross"*/}
+                            {/*    src={iconCross}*/}
+                            {/*    height="30px"*/}
+                            {/*    width="30px"*/}
+                            {/*/>*/}
+                            Закрыть
+                        </Button>
+                    </Alert>
+                }
             </div>
             <div style={{paddingLeft: "50px"}}>
                 {visible &&

@@ -34,3 +34,7 @@ body {
 .img-card-position {
     margin-right: 30px;
 }
+
+.error-alert-position {
+    width: 350px;
+}
