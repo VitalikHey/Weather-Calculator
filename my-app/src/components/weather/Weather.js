@@ -243,7 +243,7 @@ function Weather() {
                     </Alert>
                 }
             </div>
-            <div style={{paddingLeft: "50px"}}>
+            <div style={{paddingLeft: "50px", paddingTop: "10px"}}>
                 {visible &&
                     <Card className="w-25" style={{boxShadow: "0px 0px 5px 0px #161616"}}>
                         <Card.Header>
