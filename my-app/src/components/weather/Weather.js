@@ -29,6 +29,8 @@ function Weather() {
         base: "https://api.openweathermap.org/data/2.5"
     }
 
+    // Отправляет запрос на сервер, получив ответ проверяет на наличие ошибок, в случае таковых появится alert с ошибкой,
+    // а страница не загрузится
     const searchPressed = () => {
         fetch(`${api.base}/forecast?q=${inputValue}&units=metric&lang=ru&APPID=${api.key}`)
             .then(response => {
@@ -40,23 +42,24 @@ function Weather() {
             .then(result => {
                 setWeather(result);
                 setInputValue("");
+                setErrorVisible(false);
                 setVisible(true);
-                // Убрать перед окончанием проекта
-                console.log(result);
             })
             .catch(error => {
-                console.error(error)
+                console.error(error);
                 setVisible(false);
-                setErrorVisible(true)
-                setInputValue("")
+                setErrorVisible(true);
+                setInputValue("");
             });
     }
 
-
+    // Обрабатывает изменения поля ввода
     const handleChange = (event) => {
-        setInputValue(event.target.value)
+        setInputValue(event.target.value);
     }
 
+    // Возвращает массив полученный путём фильтрации исходного массива, полученного от сервера,
+    // содержащий в себе индексы элементов с значением времени 12:00
     function getIndexesWith12HourDate(weather) {
         const twelveHourIndexes = [];
         for (let i = 0; i < weather.list.length; i++) {
@@ -68,20 +71,30 @@ function Weather() {
         return twelveHourIndexes;
     }
 
+    // Возвращает массив, получившийся путём "фильтрации" исходного массива, полученного от сервера,
+    // для того чтобы хранить в себе индексы дня, во время которого эта функция была вызвана
     function getActuallyWeather(weather) {
         const actuallyArrayDate = []
-        const actuallyDate = new Date()
+        const actuallyDate = new Date();
         for (let index = 0; index < weather.list.length; index++) {
-            const date = new Date(weather.list[index].dt_txt)
+            const date = new Date(weather.list[index].dt_txt);
             if (date.getDate() === actuallyDate.getDate()) {
-                actuallyArrayDate.push(index)
+                actuallyArrayDate.push(index);
             }
         }
         return actuallyArrayDate;
     }
 
+    // Возвращает сокращенную строку даты и времени
+    function giveStringDate(numDay) {
+        const string = weather.list[String(getIndexesWith12HourDate(date)[numDay])].dt_txt
+        const shortString = string.substring(0, 10);
+        return (shortString);
+    }
 
-    const iconForWeather = (numDay) => {
+
+    // Возвращает иконку в зависимости от значения погоды
+    const getIconForWeather = (numDay) => {
         switch (weather.list[numDay].weather[0].description) {
             case "пасмурно":
                 return (
@@ -91,7 +104,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "облачно с прояснениями":
                 return (
                     <img
@@ -100,7 +113,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "переменная облачность":
                 return (
                     <img
@@ -109,7 +122,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "небольшая облачность":
                 return (
                     <img
@@ -118,7 +131,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "дождь":
                 return (
                     <img
@@ -127,7 +140,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "небольшой дождь":
                 return (
                     <img
@@ -136,7 +149,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "ясно":
                 return (
                     <img
@@ -145,7 +158,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "небольшой снег":
                 return (
                     <img
@@ -154,7 +167,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case "снег":
                 return (
                     <img
@@ -163,13 +176,13 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
         }
     }
 
-    const iconThermometer = (numDay) => {
+    // Возвращает иконку термометра, в зависимости от значения температуры
+    const getIconThermometer = (numDay) => {
         const temperature = weather.list[numDay].main.temp;
-
         switch (temperature > 0) {
             case true:
                 return (
@@ -179,7 +192,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
             case false:
                 return (
                     <img
@@ -188,7 +201,7 @@ function Weather() {
                         height="30px"
                         width="30px"
                     />
-                )
+                );
         }
     }
 
@@ -220,15 +233,11 @@ function Weather() {
             </div>
             <div>
                 {errorVisible &&
-                    <Alert className="error-alert-position" variant="danger">
+                    <Alert className="error-alert-size" variant="danger">
                         <p>Ошибка в названии населённого пункта, или проблемы с интернетом!</p>
-                        <Button variant="danger" onClick={() => {setErrorVisible(false)}}>
-                            {/*<img*/}
-                            {/*    alt="cross"*/}
-                            {/*    src={iconCross}*/}
-                            {/*    height="30px"*/}
-                            {/*    width="30px"*/}
-                            {/*/>*/}
+                        <Button variant="danger" onClick={() => {
+                            setErrorVisible(false)
+                        }}>
                             Закрыть
                         </Button>
                     </Alert>
@@ -237,18 +246,23 @@ function Weather() {
             <div style={{paddingLeft: "50px"}}>
                 {visible &&
                     <Card className="w-25" style={{boxShadow: "0px 0px 5px 0px #161616"}}>
-                        <Card.Header><span style={{
-                            fontWeight: "bold",
-                            fontSize: "25px"
-                        }}>{visible && weather.city.name}</span>{"\n"}{visible &&
-                            <span style={{fontSize: "18px"}}> сегодня: </span>}</Card.Header>
+                        <Card.Header>
+                            <span className="main-card-header-style">
+                                {visible && weather.city.name + " "}
+                            </span>
+                            {visible &&
+                                <span style={{fontSize: "18px"}}>
+                                    сегодня:
+                                </span>
+                            }
+                        </Card.Header>
                         <Card.Body>
                             <div>
                                 <Card.Text>
-                                    Температура {iconThermometer(String(getActuallyWeather(date)[0]))} {visible && weather.list[String(getActuallyWeather(date)[0])].main.temp + "°C"}
+                                    Температура {getIconThermometer(String(getActuallyWeather(date)[0]))} {visible && weather.list[String(getActuallyWeather(date)[0])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    Погода {iconForWeather(String(getActuallyWeather(date)[0]))}
+                                    Погода {getIconForWeather(String(getActuallyWeather(date)[0]))}
                                 </Card.Text>
                                 <Card.Text>
                                     Скорость ветра
@@ -272,30 +286,26 @@ function Weather() {
                                 </Card.Text>
                             </div>
                         </Card.Body>
-
                     </Card>
                 }
             </div>
             <div className="card-icon-position">
                 {visible &&
-                    <Card className="w-20" style={{boxShadow: "0px 0px 5px 0px #161616"}}>
-                        <Card.Header>{visible && <span
-                            style={{
-                                fontSize: "16px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontWeight: "bold"
-                            }}>
-                        {weather.list[String(getIndexesWith12HourDate(date)[1])].dt_txt}
-                    </span>}</Card.Header>
+                    <Card style={{boxShadow: "0px 0px 5px 0px #161616", width: "200px"}}>
+                        <Card.Header>
+                            {visible &&
+                                <span className="card-header-style">
+                                    {giveStringDate(1)}
+                                </span>
+                            }
+                        </Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {iconThermometer(String(getIndexesWith12HourDate(date)[1]))}
+                                {getIconThermometer(String(getIndexesWith12HourDate(date)[1]))}
                                 {visible && weather.list[String(getIndexesWith12HourDate(date)[1])].main.temp + "°C"}
                             </Card.Text>
                             <Card.Text>
-                                {iconForWeather(String(getIndexesWith12HourDate(date)[1]))}
+                                {getIconForWeather(String(getIndexesWith12HourDate(date)[1]))}
                             </Card.Text>
                             <Card.Text>
                                 <img
@@ -311,23 +321,21 @@ function Weather() {
                 }
                 <div className="card-pos">
                     {visible &&
-                        <Card className="w-20">
-                            <Card.Header>{visible && <span style={{
-                                fontSize: "16px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontWeight: "bold"
-                            }}>
-                        {weather.list[String(getIndexesWith12HourDate(date)[2])].dt_txt}
-                    </span>}</Card.Header>
+                        <Card style={{width: "200px"}}>
+                            <Card.Header>
+                                {visible &&
+                                    <span className="card-header-style">
+                                    {giveStringDate(2)}
+                                    </span>
+                                }
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {iconThermometer(String(getIndexesWith12HourDate(date)[2]))}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[2]))}
                                     {visible && weather.list[String(getIndexesWith12HourDate(date)[2])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {iconForWeather(String(getIndexesWith12HourDate(date)[2]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[2]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -335,7 +343,8 @@ function Weather() {
                                         src={iconWind}
                                         height="30px"
                                         width="30px"
-                                    /> {weather.list[String(getIndexesWith12HourDate(date)[2])].wind.speed}м/c
+                                    />
+                                    {weather.list[String(getIndexesWith12HourDate(date)[2])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -343,23 +352,21 @@ function Weather() {
                 </div>
                 <div className="card-pos">
                     {visible &&
-                        <Card className="w-20">
-                            <Card.Header>{visible && <span style={{
-                                fontSize: "16px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontWeight: "bold"
-                            }}>
-                        {weather.list[String(getIndexesWith12HourDate(date)[3])].dt_txt}
-                    </span>}</Card.Header>
+                        <Card style={{width: "200px"}}>
+                            <Card.Header>
+                                {visible &&
+                                    <span className="card-header-style">
+                                    {giveStringDate(3)}
+                                    </span>
+                                }
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {iconThermometer(String(getIndexesWith12HourDate(date)[3]))}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[3]))}
                                     {visible && weather.list[String(getIndexesWith12HourDate(date)[3])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {iconForWeather(String(getIndexesWith12HourDate(date)[3]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[3]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -367,7 +374,8 @@ function Weather() {
                                         src={iconWind}
                                         height="30px"
                                         width="30px"
-                                    /> {weather.list[String(getIndexesWith12HourDate(date)[3])].wind.speed}м/c
+                                    />
+                                    {weather.list[String(getIndexesWith12HourDate(date)[3])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -375,23 +383,21 @@ function Weather() {
                 </div>
                 <div className="card-pos">
                     {visible &&
-                        <Card className="w-20">
-                            <Card.Header>{visible && <span style={{
-                                fontSize: "16px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontWeight: "bold"
-                            }}>
-                        {weather.list[String(getIndexesWith12HourDate(date)[4])].dt_txt}
-                    </span>}</Card.Header>
+                        <Card style={{width: "200px"}}>
+                            <Card.Header>
+                                {visible &&
+                                    <span className="card-header-style">
+                                    {giveStringDate(4)}
+                                    </span>
+                                }
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {iconThermometer(String(getIndexesWith12HourDate(date)[4]))}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[4]))}
                                     {visible && weather.list[String(getIndexesWith12HourDate(date)[4])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {iconForWeather(String(getIndexesWith12HourDate(date)[4]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[4]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -399,7 +405,8 @@ function Weather() {
                                         src={iconWind}
                                         height="30px"
                                         width="30px"
-                                    /> {weather.list[String(getIndexesWith12HourDate(date)[4])].wind.speed}м/c
+                                    />
+                                    {weather.list[String(getIndexesWith12HourDate(date)[4])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>

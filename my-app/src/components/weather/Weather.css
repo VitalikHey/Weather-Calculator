@@ -1,16 +1,19 @@
+body {
+    background-image: url("../../images/secondVariant.jpg");
+    background-size: cover;
+
+}
+
 .button-style:active {
     background-color: darkred;
 }
 
-.card-style {
-    width: 500vw;
-}
-
-.form-style {
-    padding-top: 10px;
+.card-header-style {
+    font-size: 16px;
     display: flex;
-    justify-content: left;
-    margin-left: 470px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 .card-icon-position {
@@ -25,16 +28,33 @@
     box-shadow: 0 0 5px 0 #161616;
 }
 
-body {
-    background-image: url("../../images/secondVariant.jpg");
-    background-size: cover;
+.card-style {
+    width: 500vw;
+}
 
+.error-alert-size {
+    width: 350px;
+}
+
+.form-style {
+    padding-top: 10px;
+    display: flex;
+    justify-content: left;
+    margin-left: 470px;
 }
 
 .img-card-position {
     margin-right: 30px;
 }
 
-.error-alert-position {
-    width: 350px;
+.main-card-header-style {
+    font-weight: bold;
+    font-size: 25px;
 }
+
+
+
+
+
+
+
