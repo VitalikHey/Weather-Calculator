@@ -94,17 +94,6 @@ function Weather() {
         return (shortString);
     }
 
-    function getTime() {
-        let indexForWeather
-        const time = new Date(getActuallyWeather(date)[0]).getHours()
-        if (time > 12) {
-            indexForWeather = [1, 2, 3, 4]
-        } else {
-            indexForWeather = [0, 1, 2, 3]
-        }
-        return indexForWeather;
-    }
-
     // Возвращает иконку в зависимости от значения погоды
     const getIconForWeather = (numDay) => {
         switch (weather.list[numDay].weather[0].description) {
@@ -307,17 +296,17 @@ function Weather() {
                         <Card.Header>
                             {visible &&
                                 <span className="card-header-style">
-                                    {giveStringDate(getTime()[0])}
+                                    {giveStringDate(1)}
                                 </span>
                             }
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {getIconThermometer(String(getIndexesWith12HourDate(date)[getTime()[0]]))}
-                                {visible && weather.list[String(getIndexesWith12HourDate(date)[getTime()[0]])].main.temp + "°C"}
+                                {getIconThermometer(String(getIndexesWith12HourDate(date)[1]))}
+                                {visible && weather.list[String(getIndexesWith12HourDate(date)[1])].main.temp + "°C"}
                             </Card.Text>
                             <Card.Text>
-                                {getIconForWeather(String(getIndexesWith12HourDate(date)[getTime()[0]]))}
+                                {getIconForWeather(String(getIndexesWith12HourDate(date)[1]))}
                             </Card.Text>
                             <Card.Text>
                                 <img
@@ -326,7 +315,7 @@ function Weather() {
                                     height="30px"
                                     width="30px"
                                 />
-                                {weather.list[String(getIndexesWith12HourDate(date)[getTime()[0]])].wind.speed}м/c
+                                {weather.list[String(getIndexesWith12HourDate(date)[1])].wind.speed}м/c
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -337,17 +326,17 @@ function Weather() {
                             <Card.Header>
                                 {visible &&
                                     <span className="card-header-style">
-                                    {giveStringDate(getTime()[1])}
+                                    {giveStringDate(2)}
                                     </span>
                                 }
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[getTime()[1]]))}
-                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[getTime()[1]])].main.temp + "°C"}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[2]))}
+                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[2])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[getTime()[1]]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[2]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -356,7 +345,7 @@ function Weather() {
                                         height="30px"
                                         width="30px"
                                     />
-                                    {weather.list[String(getIndexesWith12HourDate(date)[getTime()[1]])].wind.speed}м/c
+                                    {weather.list[String(getIndexesWith12HourDate(date)[2])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -368,17 +357,17 @@ function Weather() {
                             <Card.Header>
                                 {visible &&
                                     <span className="card-header-style">
-                                    {giveStringDate(getTime()[2])}
+                                    {giveStringDate([3])}
                                     </span>
                                 }
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[getTime()[2]]))}
-                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[getTime()[2]])].main.temp + "°C"}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[3]))}
+                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[3])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[getTime()[2]]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[3]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -387,7 +376,7 @@ function Weather() {
                                         height="30px"
                                         width="30px"
                                     />
-                                    {weather.list[String(getIndexesWith12HourDate(date)[getTime()[2]])].wind.speed}м/c
+                                    {weather.list[String(getIndexesWith12HourDate(date)[3])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -399,17 +388,17 @@ function Weather() {
                             <Card.Header>
                                 {visible &&
                                     <span className="card-header-style">
-                                    {giveStringDate(3)}
+                                    {giveStringDate(4)}
                                     </span>
                                 }
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[getTime()[3]]))}
-                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[getTime()[3]])].main.temp + "°C"}
+                                    {getIconThermometer(String(getIndexesWith12HourDate(date)[4]))}
+                                    {visible && weather.list[String(getIndexesWith12HourDate(date)[4])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
-                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[getTime()[3]]))}
+                                    {getIconForWeather(String(getIndexesWith12HourDate(date)[4]))}
                                 </Card.Text>
                                 <Card.Text>
                                     <img
@@ -418,7 +407,7 @@ function Weather() {
                                         height="30px"
                                         width="30px"
                                     />
-                                    {weather.list[String(getIndexesWith12HourDate(date)[getTime()[3]])].wind.speed}м/c
+                                    {weather.list[String(getIndexesWith12HourDate(date)[4])].wind.speed}м/c
                                 </Card.Text>
                             </Card.Body>
                         </Card>
