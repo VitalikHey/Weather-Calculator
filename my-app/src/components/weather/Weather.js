@@ -260,7 +260,8 @@ function Weather() {
                         <Card.Body>
                             <div>
                                 <Card.Text>
-                                    Температура {getIconThermometer(String(getActuallyWeather(date)[0]))} {visible && weather.list[String(getActuallyWeather(date)[0])].main.temp + "°C"}
+                                    Температура {getIconThermometer(String(getActuallyWeather(date)[0]))}
+                                    {visible && weather.list[String(getActuallyWeather(date)[0])].main.temp + "°C"}
                                 </Card.Text>
                                 <Card.Text>
                                     Погода {getIconForWeather(String(getActuallyWeather(date)[0]))}

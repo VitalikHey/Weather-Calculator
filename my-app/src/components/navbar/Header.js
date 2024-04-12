@@ -5,8 +5,6 @@ import iconCalculate from "../../images/calculator-svgrepo-com (2).svg"
 import iconWeather from "../../images/weather-svgrepo-com (4).svg"
 import "./Header.css"
 
-// Иконку погоды обязательно заменить
-
 function Header() {
     return (
         <Navbar style={{backgroundColor: "white"}}>
